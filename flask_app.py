@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request
 from flask import render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import pytz
 
 app = Flask(__name__)
 app.config["DEBEUG"] = True
@@ -22,15 +24,22 @@ db = SQLAlchemy(app)
 class DoorStatus(db.Model):
     __tablename__ = "doorStatus"
 
-    id = db.Column(db.DateTime, primary_key=True)
-    status = db.Column(db.Integer)
+    timestamp = db.Column(db.DateTime, primary_key=True)
+    status = db.Column(db.Integer, nullable=False)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("index.html")
+        currStat = DoorStatus.query.order_by(DoorStatus.timestamp.desc()).first()
+        return render_template("index.html", currentStatus=currStat)
 
     data = request.get_json()
+
+    status = DoorStatus(timestamp=datetime.now(pytz.UTC).astimezone(pytz.timezone('US/Pacific')), status=data["doorStatus"])
+    db.session.add(status)
+    db.session.commit()
+
+
     print(data) # print data to log
-    return 'Successful: JSON data posted'
+    return redirect(url_for('index'))
 
