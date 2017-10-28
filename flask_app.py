@@ -19,6 +19,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+class DoorStatus(db.Model):
+    __tablename__ = "doorStatus"
+
+    id = db.Column(db.DateTime, primary_key=True)
+    status = db.Column(db.Integer)
+
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "GET":
