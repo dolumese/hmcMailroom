@@ -40,6 +40,6 @@ def index():
     db.session.commit()
 
 
-    print(data) # print data to log
+    # print(data) # print data to log
     return redirect(url_for('index'))
 

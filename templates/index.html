@@ -18,11 +18,39 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+    body {
+        background-color: #ffcc66;
+    }
+</style>
 </head>
 
 <body>
   <h1>HMC Mailroom</h1>
-  <p>Are we open right now? {{ currentStatus.status }}</p>
+  <p>We do not guarrantee that the mailroom will still be open by the time you get there. You have been warned.</p>
+
+  <center>
+
+  <h1>The mailroom is:</h1>
+  <br>
+  {% if currentStatus.status == 1 %}
+    <font size = "5"><i>open!!</i></font>
+
+    <br><br>
+    <img src="https://media2.giphy.com/media/hTsAAaYV5nRjq/200.webp#21-grid1"> <img src="https://media0.giphy.com/media/eRIrROHUPJvgs/200.webp#8-grid1">
+    <br>
+    <img src="https://media1.giphy.com/media/jGA9FxogzpaJa/200.webp#19-grid1"> <img src="https://media2.giphy.com/media/buC0elkeCDS12/200.webp#11-grid1">
+    <br>
+    <img src="https://media1.giphy.com/media/b8flZHWPLnMXu/200w.webp#5-grid1">
+  {% else %}
+    <font size = "5"><i>closed... sorry about that!</i></font>
+    <br><br>
+    <img src="https://i.giphy.com/media/d31w5Fxl6Ku7XQMU/giphy.webp">
+    <br>
+    <img src="https://media2.giphy.com/media/GL5qrojFVNpAY/200.webp#6-grid1"> <img src="https://media1.giphy.com/media/DRfAnxnwoKMko/200.webp#2-grid1"><img src="https://media1.giphy.com/media/l3q2Kgm3KOBUE6wF2/giphy.gif">
+  {% endif %}
+
+  </center>
 </body>
 </html>
 
